@@ -11,12 +11,14 @@ class ProductCipher {
         System.out.println(" ");
         System.out.println("Enter a number: ");
         int n = sc.nextInt();
+        int n1 = n;
+
 
         // Substitution encryption
         StringBuffer substitutionOutput = new StringBuffer();
         for (int i = 0; i < substitutionInput.length(); i++) {
             char c = substitutionInput.charAt(i);
-            substitutionOutput.append((char) (c + 5));
+            substitutionOutput.append((char) (c + n));
         }
         System.out.println(" ");
         System.out.println("Substituted text: ");
@@ -48,7 +50,7 @@ class ProductCipher {
         System.out.println(transpositionOutput);
 
         // Transposition decryption
-        n = transpositionOutput.length() / n;
+        n1 = transpositionOutput.length() / n1;
         StringBuffer transpositionPlaintext = new StringBuffer();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < transpositionOutput.length() / n; j++) {
@@ -61,7 +63,7 @@ class ProductCipher {
         StringBuffer plaintext = new StringBuffer();
         for (int i = 0; i < transpositionPlaintext.length(); i++) {
             char c = transpositionPlaintext.charAt(i);
-            plaintext.append((char) (c - 5));
+            plaintext.append((char) (c - n));
         }
 
         System.out.println("Plaintext: ");
