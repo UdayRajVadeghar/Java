@@ -11,12 +11,13 @@ class ProductCipher {
         System.out.println(" ");
         System.out.println("Enter a number: ");
         int n = sc.nextInt();
+        int n1 = n;
 
         // Substitution encryption
         StringBuffer substitutionOutput = new StringBuffer();
         for (int i = 0; i < substitutionInput.length(); i++) {
             char c = substitutionInput.charAt(i);
-            substitutionOutput.append((char) (c + 5));
+            substitutionOutput.append((char) (c + n));
         }
         System.out.println(" ");
         System.out.println("Substituted text: ");
@@ -24,36 +25,28 @@ class ProductCipher {
 
         // Transposition encryption
         String transpositionInput = substitutionOutput.toString();
-        int modulus;
-        if ((modulus = transpositionInput.length() % n) != 0) {
-            modulus = n - modulus;
-
-            for (; modulus != 0; modulus--) {
-                transpositionInput += "/";
-            }
-        }
         StringBuffer transpositionOutput = new StringBuffer();
         System.out.println(" ");
         System.out.println("Transposition Matrix: ");
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < transpositionInput.length() / n; j++) {
-                char c = transpositionInput.charAt(i + (j * n));
-                System.out.print(c);
-                transpositionOutput.append(c);
+        for (int i = 0; i < transpositionInput.length(); i++) {
+            char c = transpositionInput.charAt(i);
+            System.out.print(c);
+            transpositionOutput.append(c);
+            if ((i + 1) % n == 0) {
+                System.out.println();
             }
-            System.out.println();
         }
         System.out.println(" ");
         System.out.println("Final encrypted text: ");
         System.out.println(transpositionOutput);
 
         // Transposition decryption
-        n = transpositionOutput.length() / n;
         StringBuffer transpositionPlaintext = new StringBuffer();
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < transpositionOutput.length() / n; j++) {
-                char c = transpositionOutput.charAt(i + (j * n));
-                transpositionPlaintext.append(c);
+        for (int i = 0; i < transpositionOutput.length(); i++) {
+            char c = transpositionOutput.charAt(i);
+            transpositionPlaintext.append(c);
+            if ((i + 1) % n == 0) {
+                System.out.println();
             }
         }
 
@@ -61,7 +54,7 @@ class ProductCipher {
         StringBuffer plaintext = new StringBuffer();
         for (int i = 0; i < transpositionPlaintext.length(); i++) {
             char c = transpositionPlaintext.charAt(i);
-            plaintext.append((char) (c - 5));
+            plaintext.append((char) (c - n1));
         }
 
         System.out.println("Plaintext: ");
